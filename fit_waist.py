@@ -24,7 +24,7 @@ for f in files:
 
     '''optimization with non-linear least squares method'''
     Ppopt, Pcov = curve_fit(P, xmes, Pmes)
-    data_waist.append([int(f[-7:-4]), Ppopt[3]])
+    data_waist.append([int(f[-7:-4]), abs(Ppopt[3])])
 
     '''plot'''
     p[0].plot(xmes, Pmes, 'o')
