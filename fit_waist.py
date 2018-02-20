@@ -45,8 +45,8 @@ print(popt[0], popt[1])
 
 p[1].plot(data_waist[:,0], data_waist[:,1], 'bo')
 p[1].plot(data_waist[:,0], -data_waist[:,1], 'bo')
-p[1].plot(numpy.linspace(data_waist[0,0], data_waist[-1,0], 100), W(numpy.linspace(data_waist[0,0], data_waist[-1,0], 100), *popt), 'r')
-p[1].plot(numpy.linspace(data_waist[0,0], data_waist[-1,0], 100), -W(numpy.linspace(data_waist[0,0], data_waist[-1,0], 100), *popt), 'r')
+p[1].plot(numpy.linspace(min(data_waist[:,0]), max(data_waist[:,0]), 100), W(numpy.linspace(min(data_waist[:,0]), max(data_waist[:,0]), 100), *popt), 'r')
+p[1].plot(numpy.linspace(min(data_waist[:,0]), max(data_waist[:,0]), 100), -W(numpy.linspace(min(data_waist[:,0]), max(data_waist[:,0]), 100), *popt), 'r')
 p[1].grid()
 
 plt.show()
