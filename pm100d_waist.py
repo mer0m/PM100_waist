@@ -104,20 +104,7 @@ def acqu_PM100D(instrument, path, ofile):
 		try:
 			keypressed = raw_input("Press Enter to continue...\n")
 
-			if keypressed=='':
-				# Power values
-				sensors_values = instrument.value()
-				sensors_values = sensors_values.replace('E', 'e')
-				string = "%f\t%s" % (dx , sensors_values)
-				data_file.write(string) # Write in a file
-				print(string)
-
-				xmes.append(dx)
-				Pmes.append(float(sensors_values))
-
-				dx = dx + 0.05
-
-			elif keypressed.isdigit():
+			if keypressed.isdigit():
 				print('Closing %s' %filename)
 				data_file.close()
 				t0 = time.time()
@@ -131,8 +118,17 @@ def acqu_PM100D(instrument, path, ofile):
 				line1, = ax1.plot(xmes, Pmes, 'o')
 
 			else:
-				raise KeyboardInterrupt
+                # Power values
+                sensors_values = instrument.value()
+                sensors_values = sensors_values.replace('E', 'e')
+                string = "%f\t%s" % (dx , sensors_values)
+                data_file.write(string) # Write in a file
+                print(string)
 
+                xmes.append(dx)
+                Pmes.append(float(sensors_values))
+
+                dx = dx + 0.05
 
 			line1.set_data(xmes, Pmes)
 			ax1.relim()
