@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from scipy.optimize import curve_fit
 import csv, numpy, glob
 from scipy.special import erf
@@ -24,7 +26,7 @@ for f in files:
 
 	'''optimization with non-linear least squares method'''
 	Ppopt, Pcov = curve_fit(P, xmes, Pmes, method = 'trf')
-	data_waist.append([int(f[-7:-4]), Ppopt[3]])
+	data_waist.append([int(f.split('-')[-1].split('.')[0]), Ppopt[3]])
 
 	'''plot'''
 	p[0].plot(xmes, Pmes, 'o')
