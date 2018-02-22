@@ -118,17 +118,17 @@ def acqu_PM100D(instrument, path, ofile):
 				line1, = ax1.plot(xmes, Pmes, 'o')
 
 			else:
-                # Power values
-                sensors_values = instrument.value()
-                sensors_values = sensors_values.replace('E', 'e')
-                string = "%f\t%s" % (dx , sensors_values)
-                data_file.write(string) # Write in a file
-                print(string)
+				# Power values
+				sensors_values = instrument.value()
+				sensors_values = sensors_values.replace('E', 'e')
+				string = "%f\t%s" % (dx , sensors_values)
+				data_file.write(string) # Write in a file
+				print(string)
 
-                xmes.append(dx)
-                Pmes.append(float(sensors_values))
+				xmes.append(dx)
+				Pmes.append(float(sensors_values))
 
-                dx = dx + 0.05
+				dx = dx + 0.05
 
 			line1.set_data(xmes, Pmes)
 			ax1.relim()
