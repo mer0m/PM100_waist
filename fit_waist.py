@@ -26,7 +26,11 @@ for f in files:
 
 	'''optimization with non-linear least squares method'''
 	Ppopt, Pcov = curve_fit(P, xmes, Pmes, method = 'trf')
-	data_waist.append([int(f.split('-')[-1].split('.')[0]), Ppopt[3]])
+	z = int(f.split('-')[-1].split('.')[0])
+	w = Ppopt[3]
+	w_sig = numpy.sqrt(numpy.diag(Pcov))[3]
+	data_waist.append([z, w, w_sig])
+	print('z = %.3f mm\t w = %.3f mm (+-%.3f mm)'%(z, w, 1.96*w_sig))
 
 	'''plot'''
 	p[0].plot(xmes, Pmes, 'o')
@@ -36,14 +40,17 @@ p[0].grid()
 
 '''return waist(z) table'''
 data_waist = numpy.asarray(data_waist, dtype = float)
-print(data_waist)
 
 '''waist function to optimize'''
 def W(z, w0, z0):
 	return w0*(1.+((z-z0)*1542e-6/(numpy.pi*w0**2))**2)**0.5
 
 popt, cov = curve_fit(W, data_waist[:,0], data_waist[:,1])
-print(popt[0], popt[1])
+w0 = popt[0]
+w0_sig = numpy.sqrt(numpy.diag(cov))[0]
+z0 = popt[1]
+z0_sig = numpy.sqrt(numpy.diag(cov))[1]
+print('\nz0 = %.3f mm (+-%.3f mm)\t w0 = %.3f mm (+-%.3f mm)'%(z0, 1.96*z0_sig, w0, 1.96*w0_sig))
 
 p[1].plot(data_waist[:,0], data_waist[:,1], 'bo')
 p[1].plot(data_waist[:,0], -data_waist[:,1], 'bo')
