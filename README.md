@@ -46,4 +46,6 @@ At the end, press `CTRL + C` and enter to quit *properly*.
 ## Post-processing
 `fit_waist.py` fit each waist of each section and compute the *w0* and the *z0* of the beam.
 
-`./fit_waist.py`
+`./fit_waist.py` will return
+
+![screenshot](doc/fit_waist.png)
